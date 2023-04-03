@@ -1,13 +1,107 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu&display=swap');
+*{
+  padding : 0;
+  margin  : 0;
+  border  : 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+*{
+  font-family:'Righteous', cursive;
+}
+body {
+  background: rgb(255,255,255);
+  background: radial-gradient(circle, rgba(255,255,255,1) 2%, rgba(220,245,247,1) 53%, rgba(176,170,252,1) 100%);
+ 
+}
+.App {
+  text-align: center;
+}
+/*Home*/
+.wallpaper{
+  background-image: url("assets/img/wall.jpg");
+  min-width: 100vh;
+   min-height: 100vh;
+   background-size: cover;
+   position: relative;
+   padding-top: 5px;
+   color: white;
+   font-family:'Righteous', cursive;
+}
+
+.wallpaper:before {
+	content:'';
+	position: absolute;
+  top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.6);
+}
+
+.homebutton{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10%;
+}
+
+/*Registro*/
+.registroEdit{
+  margin: 2em;
+  font-family:'Ubuntu', sans-serif;
+}
+
+/*Login*/
+.login{
+  padding: 60px;
+justify-items: center;
+}
+
+/*Perfil*/
+.list {
+  padding: 10px;
+  margin: 30px;
+  font-family:'Righteous', cursive;
+}
+
+/*Formulario*/
+.formulario{
+  margin: 20px;
+  font-family:'Righteous', cursive;
+}
+
+
+/*Galeria*/
+.active{
+  font-weight: bold;
+  color: rgb(107, 237, 224);
+}
+
+.imgcard{
+  transition: transform .7s;
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+
+}
+.imgcard:hover{
+  transform: scale(1.2);
+}
+
+.galeryEdit{
+  display: flex;
+  height: 100vh;
+}
+.sideGalery{
+  width: 260px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow: auto;
+  margin:10px;
+}
+.borderEdit{
+  border-radius: 10px;
 }
