@@ -14,26 +14,13 @@ const Perfil = () => {
   const navigate = useNavigate();
   
    console.log("linea16", users)
-  // console.log(idUser)
+  console.log(idUser)
 
   
   if(exitoLogin === true){
-
-  //  const get= users.filter((user) => user.idusuario === idUser)
-  //       // get.map((us) => ())
-  //                   console.log(get)
-     
-  // const usuariosFiltrados = users.filter((usuario) => {
-  //     const resultFindId= idUser.find((valor) => valor.id);
-      
-  //       return resultFindId
-
-  //     })
-  //     console.log(usuariosFiltrados)
-
   return (
     <div>
-      {users.rows
+      {users
         .filter((user) => user.idusuario === idUser)
         .map((us) => (
           <div className="contenedor m-5" key={us.idusuario}>
@@ -44,6 +31,14 @@ const Perfil = () => {
               <ListGroup.Item>{us.correo}</ListGroup.Item>
               <ListGroup.Item>{us.contrasena}</ListGroup.Item>
               <ListGroup.Item>{us.telefono}</ListGroup.Item>
+              
+              <Button
+                variant   = "primary"
+                type      =  "submit"
+                onClick   = {() => {navigate(`/formulario`)}}
+              >
+                Vender un producto
+              </Button>
               
               <Button
                 variant   = "primary"

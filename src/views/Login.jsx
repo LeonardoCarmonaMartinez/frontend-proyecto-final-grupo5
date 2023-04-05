@@ -1,26 +1,17 @@
 import React, { useContext, useState, } from 'react';
-
 import MyContext from '../MyContext';
-
 import { useNavigate } from "react-router-dom";
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
-
 
 const Login = () => {
   const {  setExitoLogin, setUsers, setIdUser } = useContext(MyContext);
   const navigate = useNavigate();
-
   const [ correoIngresado, setCorreoIngresado ]         = useState("");
   const [ contrasenaIngresada, setContrasenaIngresada ] = useState("");
  
- 
   const HandleLoginSesion = async (e) => {
-
     e.preventDefault()
-    
     if(correoIngresado === "" || contrasenaIngresada === "" ) {
         alert("Debes ingresar tus datos para continuar 3")
     } else if(correoIngresado !== "" && contrasenaIngresada !== "" ) {
@@ -31,7 +22,10 @@ const Login = () => {
       const requestOptions = {
         method  : 'POST',
         headers : { 'Content-Type': 'application/json' },
-        body    : JSON.stringify({"correo": correoIngresado, "contrasena":contrasenaIngresada})
+        body    : JSON.stringify({
+          "correo": correoIngresado,
+          "contrasena":contrasenaIngresada,
+        })
       };
 
 
@@ -43,84 +37,26 @@ const Login = () => {
 
       const data  = await response.json(); 
       var idUsuario  = data.idUsuario;
-
-      //const {getToken} = token;
       localStorage.setItem('token', data.token);
-
     } catch (err) {
         console.error( `Error: ${err} ` )
     }
 
-       try {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/perfil",
+        {method: 'GET'}
+      );
+      const dataUsuarios = await response.json();
 
-        const response = await fetch( 'http://localhost:3001/perfil', {method: 'GET'});
-        const dataUsuarios = await response.json();
-
-        setUsers(dataUsuarios);
-        setIdUser(idUsuario);
+      setUsers(dataUsuarios);
+      setIdUser(idUsuario);
         
-        navigate("/perfil/"+ idUsuario);
-
-
-      } catch (err) {
+      navigate("/perfil/"+ idUsuario);
+    } catch (err) {
         console.error( `Error: ${err} ` )
-      }     
+    }     
   };
-
- 
-    // const HandleLoginSesion = async (e) => {
-    //   e.preventDefault()
-      
-    //   if(correoIngresado === "" || contrasenaIngresada === "" ) {
-    //       alert("Debes ingresar tus datos para continuar")
-    //   } else if(correoIngresado !== "" && contrasenaIngresada !== "" ) {
-    //       setExitoLogin(true)
-    //   }
-       
-    //   try {
-    //     const requestOptions = {
-    //       method  : 'POST',
-    //       headers : { 'Content-Type': 'application/json' },
-    //       body    : JSON.stringify({"correo": correoIngresado, "contrasena":contrasenaIngresada})
-    //     };
-    //   // https://proyectofinalgrupo5.pwieschollek.repl.co
-    //     const response = await fetch('http://localhost:3001/login', requestOptions)
-    //       console.log(response)
-
-    //     const {getToken} = await response.text()
-    //     localStorage.setItem('token', getToken)
-    //     // localStorage.setItem('id', idusuario)
-    //     navigate("/perfil/+idusuario")        
-    //   } catch (err) {
-    //       console.error( `Error: ${err} ` )
-    //   }
-
-    //     try {
-    //       const response = await fetch( 'http://localhost:3001/perfil', {method: 'GET'});
-    //       const dataUsuarios = await response.json()
-    //       console.log(dataUsuarios)
-    //       setUsers(dataUsuarios)
-          
-    //       // const usuariosFiltrados = users.filter((usuario) => {
-    //       //   const resultFindId= idUser.find((valor) => valor.id === usuario.id);
-            
-    //       //     return resultFindId
-
-    //       //   })
-    //       //   console.log(usuariosFiltrados)
-
-    //       const idUsuario = users.map(us => {
-    //         return {id:us.idusuario}
-    //       });
-    //       setIdUser(idUsuario)
-          
-          
-    //     } catch (err) {
-    //       console.error( `Error: ${err} ` )
-    //     }     
-    // };
-
-
     
   return (
     <Form className='login' onSubmit={HandleLoginSesion}>

@@ -1,17 +1,13 @@
 import React, { useContext, useState }from 'react';
-
 import MyContext from "../MyContext";
 import { useNavigate } from "react-router-dom";
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 
 const Formulario = () => {
-
   const { products } = useContext(MyContext);
   const navigate = useNavigate();
-
   const [ titulo, setTitulo ]                     = useState("");
   const [ imagen, setImagen ]                     = useState("");
   const [ descripcion , setDescripcion ]          = useState("");
@@ -78,7 +74,7 @@ const Formulario = () => {
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Control type="text" placeholder="URL"  onChange={(e) => setImagen(e.target.value)}/>
+        <Form.Control type="text" placeholder="URL imagen"  onChange={(e) => setImagen(e.target.value)}/>
       </Form.Group>
 
       <Form.Group className="mb-3">
