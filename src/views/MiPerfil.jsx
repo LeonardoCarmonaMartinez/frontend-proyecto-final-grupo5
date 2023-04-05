@@ -9,33 +9,39 @@ import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Row, Col } from "react-bootstrap";
 
+
 const Perfil = () => {
-  const { users, exitoLogin } = useContext(MyContext);
-  const { id_us } = useParams();
+  const { exitoLogin, users, setUsers } = useContext(MyContext);
+  const { idusuario } = useParams();
   const navigate = useNavigate();
-  console.log(users);
 
-  
-  // Ver información de usuarios agregados en tabla "usuarios"
-    const getPerfil = async () => {
-      try {
-        const response = await fetch( 'http://localhost:3001/usuarios' , {method: 'GET'});
-        const {Users} = await response.json()
-          return {Users}
-      } catch (err) {
-        console.error( `Error: ${err} ` )
-      }
+  const token = localStorage.getItem("token")
+
+  const obtenerUsuario = async () => {
+    try {
+      const response = await fetch( `https://proyectofinalgrupo5.pwieschollek.repl.co/perfil/${idusuario}` ,
+      console.log("holaS"),
+      {
+        method        : 'GET',
+        Authorization : `Bearer ${token}`
+      });
+      const {dataUsuarios} = await response.json()
+      console.log(dataUsuarios)
+      setUsers(dataUsuarios)
+    } catch (err) {
+      console.error( `Error: ${err} ` )
     }
-      console.log(getPerfil)
-
+  };
+ 
+  
   
   if(exitoLogin === true){
   return (
     <div>
       {users
-        .filter((user) => user.id_usuario === id_us)
+        .filter((user) => user.idusuario === idusuario)
         .map((us) => (
-          <div className="contenedor m-5" key={us.id_usuario}>
+          <div className="contenedor m-5" key={us.idusuario}>
             <ListGroup className="list">
               <ListGroup.Item>{us.nombre}</ListGroup.Item>
               <ListGroup.Item>{us.edad}</ListGroup.Item>
@@ -52,10 +58,20 @@ const Perfil = () => {
                 variant="primary"
                 type="submit"
                 onClick={() => {
-                  navigate(`/enventa/${id_us}`);
+                  navigate(`/enventa`);
                 }}
               >
                 Mis productos en venta
+              </Button>
+
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={() => {
+                  navigate(`/galeria`);
+                }}
+              >
+                Galeria de productos
               </Button>
 
             </ListGroup>

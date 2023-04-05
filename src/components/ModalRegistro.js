@@ -11,10 +11,8 @@ function RegistroExitosoModal() {
   const { exitoRegistro } = useContext(MyContext);
 
   return (
-    <Modal
-      className="modalShow"
-      show={ exitoRegistro }
-    >
+    <Modal className="modalShow" show={ exitoRegistro }>
+      
       <Modal.Header>
         <Modal.Title>Registro Exitoso</Modal.Title>
       </Modal.Header>
@@ -23,13 +21,9 @@ function RegistroExitosoModal() {
         <p>¡Ya eres parte de nuestra comunidad! <br/> Ahora inicia tu sesión.</p>
       </Modal.Body>
 
-      <Modal.Footer>
-        <Nav.Link href="/login"> 
-          <Button variant="primary">
-            Iniciar sesión
-          </Button>
-        </Nav.Link>          
-      </Modal.Footer>
+      <Nav.Link href="/login"> 
+        <Button variant="primary"> Iniciar sesión </Button>
+      </Nav.Link> 
     </Modal>
   );
 }

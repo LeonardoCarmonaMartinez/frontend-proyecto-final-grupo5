@@ -2,11 +2,6 @@ import React from "react";
 
 
 const Home = () => {
-//  const { TrueEstado } = useContext(MyContext);
-
-//  const irAFormularioProductos = () => {
-//    navigate(`/formulario`);
-// }
   
   return (
     <div className="wallpaper">      

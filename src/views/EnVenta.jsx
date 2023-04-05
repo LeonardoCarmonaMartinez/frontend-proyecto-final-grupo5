@@ -1,30 +1,12 @@
 import React, { useContext }from 'react';
-import MyContext from "../MyContext";
+
 import Card from 'react-bootstrap/Card';
 import { Container, Row } from 'react-bootstrap';
 
-// import { useParams } from 'react-router-dom';
 
 const EnVenta = () => {
-  const { infoUnificada, setInfoUnificada, filtroUnificada, setFiltroUnificada } = useContext(MyContext);
-  // const { id } = useParams();
-
-   // Ver información de productos agregados en tabla "productos"
-  const getProductos = async () => {
-    try {
-      const response = await fetch( 'http://localhost:3001/productos' , {method: 'GET'});
-      const {Products} = await response.json()
-        return {Products}
-    } catch (err) {
-      console.error( `Error: ${err} ` )
-    }
-    console.log(getProductos)
-  };
   
-
-   
-  return (
-      
+  return (      
     <div>   
       <Container>
       <Row sm={3} md={3} lg={3}>

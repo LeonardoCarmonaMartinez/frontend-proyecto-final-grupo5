@@ -18,38 +18,17 @@ const Formulario = () => {
   const [ precio , setPrecio ]                    = useState("");
   const [ correoProducto, setCorreoProducto]      = useState("");
   const [ telefonoProducto, setTelefonoProducto]  = useState("");
-  const [ err, setErr ]                           = useState(false);
+  const [ er, setEr ]                             = useState(false);
 
   const HandleAgregarProducto = (e) => {
     e.preventDefault()
-
-
-    //Agregar producto a tabla "productos" en base de datos 
-    const postProducto = async (titulo, imagen, descripcion, precio, correoProducto, telefonoProducto) => {
-      try {
-        const requestPostProductos = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({titulo:titulo,imagen:imagen,descripcion:descripcion,
-                                precio:precio, correoProducto:correoProducto, telefonoProducto:telefonoProducto})
-        };
-        const response = await fetch('http://localhost:3001/productos', requestPostProductos)
-          message = response.send("Producto agregado con éxito")
-            console.log(message)
-      } catch (err) {
-          console.error( `Error: ${err} ` )
-      }
-    };
-    console.log(postProducto)
-
     
-
     if(titulo === "" || imagen === "" || descripcion === ""
         || precio === "" || correoProducto === "" || telefonoProducto === "" ) 
-      { setErr(true)}
-    if ( err === true) {
-        alert("Debes rellenar todos los campos!")}
- };
+      { setEr(true)}
+    if ( er === true) {
+        alert("Debes rellenar todos los campos")}
+  };
 
   function agregarProducto(){
     const assignId = products[products.length - 1]

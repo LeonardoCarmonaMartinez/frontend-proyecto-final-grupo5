@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import MyContext from './MyContext';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {useState, useEffect} from 'react';
 
 //importación de vistas 
 import Home from './views/Home';
@@ -49,46 +48,6 @@ function App() {
                         filtroUnificada, setFiltroUnificada, 
                       };
 
-  //Consumo de Json
-  const endpoint    = "http://localhost:3001/productos";
-  // const endpoint2   = "http://localhost:3001/usuario";
-  // const endpoint3   = "http://localhost:3001/....";
-  // const endpoint4   = "http://localhost:3001/"
-
-
-  const getProduct = async () => {
-    const res = await fetch (endpoint);
-    const infoProducts = await res.json();
-    
-    setProducts(infoProducts)
-  };
-
-  useEffect(() => {
-    getProduct()
-  }, []);
-
-  // const getUsers = async () => {
-  //   const res = await fetch (endpoint2);
-  //   const infoUsers = await res.json();
-    
-  //   setUsers(infoUsers)
-  // };
-
-  // useEffect(() => {
-  //   getUsers()
-  // }, []);
-
-  // const getInfoUnificada = async () => {
-  //   const res = await fetch (endpoint3);
-  //   const infoUnificada = await res.json();
-    
-  //   setInfoUnificada(infoUnificada)
-  // };
-
-  // useEffect(() => {
-  //   getInfoUnificada()
-  // }, []);
-
    
   return (
     <div className="App">
@@ -99,11 +58,11 @@ function App() {
               < Route path  = "/" element={< Home />} />
               < Route path  = "/login" element={< Login />} />
               < Route path  = "/registro" element={< Registro />} />
-              < Route path  = "/perfil/:id_us" element={< Perfil />} />
+              < Route path  = "/perfil/:idusuario" element={< Perfil />} />
               < Route path  = "/formulario" element={< Formulario />} />
               < Route path  = "/galeria" element={< Galeria />} />
-              < Route path  = "/infoproducto/:id_producto" element={< InfoProducto />} />
-              < Route path  = "/enventa/:id_us" element={< EnVenta />} />
+              < Route path  = "/infoproducto/:idproducto" element={< InfoProducto />} />
+              < Route path  = "/enventa/:idproducto" element={< EnVenta />} />
               < Route path  = "*" element={< NotFound />}/>
             </ Routes >    
         </ BrowserRouter >
