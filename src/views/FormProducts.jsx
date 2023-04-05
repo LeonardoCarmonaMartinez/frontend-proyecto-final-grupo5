@@ -30,17 +30,18 @@ const Formulario = () => {
         alert("Debes rellenar todos los campos")}
 
 
-  //   try {        
-  //     const requestAgregarProducto = {
-  //       method: 'POST',
-  //       body: JSON.stringify({'idusuario':{idusuario},'titulo':titulo,'imagen':imagen,'descripcion':descripcion,'precio':precio,'correoProducto':correoProducto,'telefonoProducto':telefonoProducto})
-  //     };        
-  //     const response = await fetch( 'http://localhost:3001/productos', requestAgregarProducto);
-  //     const message = await response.send("Usuario registrado con éxito");
-  //       console.log(message)
-  //   } catch (err) {
-  //       console.error( `Error: ${err} ` )
-  //   }
+    // try {        
+    //   const requestAgregarProducto = {
+    //     method: 'POST',
+    //     headers : { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({'idusuario':{idusuario},'titulo':titulo,'imagen':imagen,'descripcion':descripcion,'precio':precio,'correoProducto':correoProducto,'telefonoProducto':telefonoProducto})
+    //   };        
+    //   const response = await fetch( 'http://localhost:3001/productos', requestAgregarProducto);
+    //   const message = await response.send("Usuario registrado con éxito");
+    //     console.log(message)
+    // } catch (err) {
+    //     console.error( `Error: ${err} ` )
+    // }
 
   };
 
@@ -49,7 +50,7 @@ const Formulario = () => {
     const newId = assignId.id_producto + 1
     let object = {
                   id_producto:newId,
-                  name:nombre,
+                  name:titulo,
                   img:imagen,
                   desc:descripcion,
                   price:precio

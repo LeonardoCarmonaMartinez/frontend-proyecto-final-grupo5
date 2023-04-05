@@ -10,52 +10,115 @@ import Form from 'react-bootstrap/Form';
 
 
 const Login = () => {
-  const {  setExitoLogin, users, setUsers, setIdUser } = useContext(MyContext);
+  const {  setExitoLogin, setUsers, setIdUser } = useContext(MyContext);
   const navigate = useNavigate();
 
   const [ correoIngresado, setCorreoIngresado ]         = useState("");
   const [ contrasenaIngresada, setContrasenaIngresada ] = useState("");
+ 
+ 
+  const HandleLoginSesion = async (e) => {
+
+    e.preventDefault()
+    
+    if(correoIngresado === "" || contrasenaIngresada === "" ) {
+        alert("Debes ingresar tus datos para continuar 3")
+    } else if(correoIngresado !== "" && contrasenaIngresada !== "" ) {
+        setExitoLogin(true)
+    }
+     
+    try {
+      const requestOptions = {
+        method  : 'POST',
+        headers : { 'Content-Type': 'application/json' },
+        body    : JSON.stringify({"correo": correoIngresado, "contrasena":contrasenaIngresada})
+      };
+
+
+      const response = await fetch('http://localhost:3001/login', requestOptions)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data  = await response.json(); 
+      var idUsuario  = data.idUsuario;
+
+      //const {getToken} = token;
+      localStorage.setItem('token', data.token);
+
+    } catch (err) {
+        console.error( `Error: ${err} ` )
+    }
+
+       try {
+
+        const response = await fetch( 'http://localhost:3001/perfil', {method: 'GET'});
+        const dataUsuarios = await response.json();
+
+        setUsers(dataUsuarios);
+        setIdUser(idUsuario);
+        
+        navigate("/perfil/"+ idUsuario);
+
+
+      } catch (err) {
+        console.error( `Error: ${err} ` )
+      }     
+  };
 
  
-    const HandleLoginSesion = async (e) => {
-      e.preventDefault()
+    // const HandleLoginSesion = async (e) => {
+    //   e.preventDefault()
       
-      if(correoIngresado === "" || contrasenaIngresada === "" ) {
-          alert("Debes ingresar tus datos para continuar")
-      } else if(correoIngresado !== "" && contrasenaIngresada !== "" ) {
-          setExitoLogin(true)
-      }
+    //   if(correoIngresado === "" || contrasenaIngresada === "" ) {
+    //       alert("Debes ingresar tus datos para continuar")
+    //   } else if(correoIngresado !== "" && contrasenaIngresada !== "" ) {
+    //       setExitoLogin(true)
+    //   }
        
-      try {
-        const requestOptions = {
-          method  : 'POST',
-          headers : { 'Content-Type': 'application/json' },
-          body    : JSON.stringify({"correo": correoIngresado, "contrasena":contrasenaIngresada})
-        };
-      // https://proyectofinalgrupo5.pwieschollek.repl.co
-        const response = await fetch('http://localhost:3001/login', requestOptions)
-        const {getToken} = await response.text()
-        localStorage.setItem('token', getToken)
-        navigate("/perfil/:idusuario")        
-      } catch (err) {
-          console.error( `Error: ${err} ` )
-      }
+    //   try {
+    //     const requestOptions = {
+    //       method  : 'POST',
+    //       headers : { 'Content-Type': 'application/json' },
+    //       body    : JSON.stringify({"correo": correoIngresado, "contrasena":contrasenaIngresada})
+    //     };
+    //   // https://proyectofinalgrupo5.pwieschollek.repl.co
+    //     const response = await fetch('http://localhost:3001/login', requestOptions)
+    //       console.log(response)
 
-        try {
-          const response = await fetch( 'http://localhost:3001/perfil', {method: 'GET'});
-          const dataUsuarios = await response.json()
-          console.log(dataUsuarios)
-          setUsers(dataUsuarios)
+    //     const {getToken} = await response.text()
+    //     localStorage.setItem('token', getToken)
+    //     // localStorage.setItem('id', idusuario)
+    //     navigate("/perfil/+idusuario")        
+    //   } catch (err) {
+    //       console.error( `Error: ${err} ` )
+    //   }
+
+    //     try {
+    //       const response = await fetch( 'http://localhost:3001/perfil', {method: 'GET'});
+    //       const dataUsuarios = await response.json()
+    //       console.log(dataUsuarios)
+    //       setUsers(dataUsuarios)
           
-          const idUsuario = users.rows.map(us => {
-            return {id:us.rows.idusuario}
-          });
-          setIdUser(idUsuario)
+    //       // const usuariosFiltrados = users.filter((usuario) => {
+    //       //   const resultFindId= idUser.find((valor) => valor.id === usuario.id);
+            
+    //       //     return resultFindId
+
+    //       //   })
+    //       //   console.log(usuariosFiltrados)
+
+    //       const idUsuario = users.map(us => {
+    //         return {id:us.idusuario}
+    //       });
+    //       setIdUser(idUsuario)
           
-        } catch (err) {
-          console.error( `Error: ${err} ` )
-        }     
-    };
+          
+    //     } catch (err) {
+    //       console.error( `Error: ${err} ` )
+    //     }     
+    // };
 
 
     

@@ -13,24 +13,37 @@ const Perfil = () => {
 
   const navigate = useNavigate();
   
-  console.log(users)
-  console.log(idUser)
+   console.log("linea16", users)
+  // console.log(idUser)
 
   
   if(exitoLogin === true){
+
+  //  const get= users.filter((user) => user.idusuario === idUser)
+  //       // get.map((us) => ())
+  //                   console.log(get)
+     
+  // const usuariosFiltrados = users.filter((usuario) => {
+  //     const resultFindId= idUser.find((valor) => valor.id);
+      
+  //       return resultFindId
+
+  //     })
+  //     console.log(usuariosFiltrados)
+
   return (
     <div>
       {users.rows
-        .filter((user) => user.rows.idusuario === idUser)
+        .filter((user) => user.idusuario === idUser)
         .map((us) => (
-          <div className="contenedor m-5" key={us.rows.idusuario}>
+          <div className="contenedor m-5" key={us.idusuario}>
             <ListGroup className="list">
-              <ListGroup.Item>{us.rows.nombre}</ListGroup.Item>
-              <ListGroup.Item>{us.rows.edad}</ListGroup.Item>
-              <ListGroup.Item>{us.rows.direccion}</ListGroup.Item>
-              <ListGroup.Item>{us.rows.correo}</ListGroup.Item>
-              <ListGroup.Item>{us.rows.contrasena}</ListGroup.Item>
-              <ListGroup.Item>{us.rows.telefono}</ListGroup.Item>
+              <ListGroup.Item>{us.nombre}</ListGroup.Item>
+              <ListGroup.Item>{us.edad}</ListGroup.Item>
+              <ListGroup.Item>{us.direccion}</ListGroup.Item>
+              <ListGroup.Item>{us.correo}</ListGroup.Item>
+              <ListGroup.Item>{us.contrasena}</ListGroup.Item>
+              <ListGroup.Item>{us.telefono}</ListGroup.Item>
               
               <Button
                 variant   = "primary"

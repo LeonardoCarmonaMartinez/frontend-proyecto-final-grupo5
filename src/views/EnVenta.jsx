@@ -5,6 +5,7 @@ import { Container, Row } from 'react-bootstrap';
 
 
 const EnVenta = () => {
+  const { infoUnificada } = useContext();
   
   return (      
     <div>   
