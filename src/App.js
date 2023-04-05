@@ -33,6 +33,7 @@ function App() {
   const [ handlerSearching, setHandlerSearching]  = useState([]);
   const [ infoUnificada, setInfoUnificada]        = useState([]);
   const [ filtroUnificada, setFiltroUnificada]    = useState([]);
+  const [ idUser, setIdUser]                      = useState([]);
   
   const globalState = { changeState, setChangeState,
                         products, setProducts,
@@ -45,7 +46,8 @@ function App() {
                         searchConcept, setSearchConcept,
                         handlerSearching, setHandlerSearching,
                         infoUnificada, setInfoUnificada,
-                        filtroUnificada, setFiltroUnificada, 
+                        filtroUnificada, setFiltroUnificada,
+                        idUser, setIdUser 
                       };
 
    

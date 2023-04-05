@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 
 
 const Login = () => {
-  const {  setExitoLogin } = useContext(MyContext);
+  const {  setExitoLogin, users, setUsers, setIdUser } = useContext(MyContext);
   const navigate = useNavigate();
 
   const [ correoIngresado, setCorreoIngresado ]         = useState("");
@@ -30,15 +30,31 @@ const Login = () => {
         const requestOptions = {
           method  : 'POST',
           headers : { 'Content-Type': 'application/json' },
-          body    : JSON.stringify({'correo': correoIngresado,'contraseña':contrasenaIngresada})
-      };
-        const response = await fetch('https://proyectofinalgrupo5.pwieschollek.repl.co/login', requestOptions)
-        const getToken = await response.text()
+          body    : JSON.stringify({"correo": correoIngresado, "contrasena":contrasenaIngresada})
+        };
+      // https://proyectofinalgrupo5.pwieschollek.repl.co
+        const response = await fetch('http://localhost:3001/login', requestOptions)
+        const {getToken} = await response.text()
         localStorage.setItem('token', getToken)
-        navigate("/perfil/idusuario")        
+        navigate("/perfil/:idusuario")        
       } catch (err) {
           console.error( `Error: ${err} ` )
       }
+
+        try {
+          const response = await fetch( 'http://localhost:3001/perfil', {method: 'GET'});
+          const dataUsuarios = await response.json()
+          console.log(dataUsuarios)
+          setUsers(dataUsuarios)
+          
+          const idUsuario = users.rows.map(us => {
+            return {id:us.rows.idusuario}
+          });
+          setIdUser(idUsuario)
+          
+        } catch (err) {
+          console.error( `Error: ${err} ` )
+        }     
     };
 
 
@@ -56,8 +72,8 @@ const Login = () => {
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Control type        = "password"
-                      name        = "contraseña"
-                      placeholder = "Contraseña"
+                      name        = "contrasena"
+                      placeholder = "Contrasena"
                       onChange    = {(e) => setContrasenaIngresada(e.target.value)}
         />
       </Form.Group>

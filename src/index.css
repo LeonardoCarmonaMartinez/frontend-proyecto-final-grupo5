@@ -29,14 +29,11 @@ body {
    font-family:'Righteous', cursive;
 }
 
-.wallpaper:before {
-	content:'';
-	position: absolute;
-  top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background-color: rgba(0,0,0,0.6);
+.wallpaper, h1 {
+  color: white; text-shadow: black 0.2em 0.2em 0.3em
+}
+.wallpaper, h3 {
+  color: white; text-shadow: black 0.1em 0.1em 0.2em
 }
 
 .homebutton{

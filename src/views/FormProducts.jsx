@@ -20,7 +20,7 @@ const Formulario = () => {
   const [ telefonoProducto, setTelefonoProducto]  = useState("");
   const [ er, setEr ]                             = useState(false);
 
-  const HandleAgregarProducto = (e) => {
+  const HandleAgregarProducto = async (e) => {
     e.preventDefault()
     
     if(titulo === "" || imagen === "" || descripcion === ""
@@ -28,6 +28,20 @@ const Formulario = () => {
       { setEr(true)}
     if ( er === true) {
         alert("Debes rellenar todos los campos")}
+
+
+  //   try {        
+  //     const requestAgregarProducto = {
+  //       method: 'POST',
+  //       body: JSON.stringify({'idusuario':{idusuario},'titulo':titulo,'imagen':imagen,'descripcion':descripcion,'precio':precio,'correoProducto':correoProducto,'telefonoProducto':telefonoProducto})
+  //     };        
+  //     const response = await fetch( 'http://localhost:3001/productos', requestAgregarProducto);
+  //     const message = await response.send("Usuario registrado con éxito");
+  //       console.log(message)
+  //   } catch (err) {
+  //       console.error( `Error: ${err} ` )
+  //   }
+
   };
 
   function agregarProducto(){

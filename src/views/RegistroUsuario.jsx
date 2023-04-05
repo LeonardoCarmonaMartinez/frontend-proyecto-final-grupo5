@@ -24,18 +24,19 @@ const Registro = () => {
 
     if(nombre === "" || edad === "" || direccion === "" || correo === "" || contrasena === "" || telefono === "") {
         alert("Debes ingresar todos los campos obligatorios")
-    } else { setExitoRegistro(true)}
-
-    try {        
-      const requestRegistro = {
-        method: 'POST',
-        body: JSON.stringify({'nombre':nombre,'edad':edad,'direccion':direccion,'correo':correo,'contraseña':contrasena,'telefono':telefono})
-      };        
-      const response = await fetch( 'http://localhost:3001/registro', requestRegistro);
-      const message = await response.send("Usuario registrado con éxito");
-        console.log(message)
-    } catch (err) {
-        console.error( `Error: ${err} ` )
+    } else if (nombre !== "" && edad !== "" && direccion !== "" && correo !== "" && contrasena !== "" && telefono !== "") {
+        try {        
+          const requestRegistro = {
+            method: 'POST',
+            headers : { 'Content-Type': 'application/json' },
+            body: JSON.stringify({'nombre':nombre,'edad':edad, 'direccion':direccion, 'correo':correo, 'contrasena':contrasena, 'telefono':telefono})
+          };               
+          await fetch('http://localhost:3001/registro', requestRegistro)
+        } catch (err) {
+            console.error( `Error: ${err} ` )
+        }
+        
+        setExitoRegistro(true)
     }
   };
 
@@ -79,7 +80,7 @@ const Registro = () => {
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Control type        = "password"
-                        name        = "contraseña"
+                        name        = "contrasena"
                         placeholder = "Contraseña (*)" 
                         onChange    = {(e) => setContrasena(e.target.value)}/>
         </Form.Group>
