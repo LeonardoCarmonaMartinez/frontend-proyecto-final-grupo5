@@ -4,29 +4,20 @@ import MyContext from "../MyContext";
 
 
 const Sidebar = () => {
-  const { setChangeState, products, setPriceFilter, minPrice, setMinPrice, maxPrice, setMaxPrice } = useContext(MyContext)
-
-  const FalseEstado = () => {
-    const valorFalse = false;
-    setChangeState(valorFalse)
-  };    
+  const {products, setPriceFilter, minPrice, setMinPrice, maxPrice, setMaxPrice} = useContext(MyContext)    
   
   const handleSearch = () => {
-    const cardsGalery = products.filter(
-      product => product.price >= minPrice && product.price <= maxPrice
+    const filterPriceGalery = products.filter(
+      product => product.precio >= minPrice && product.precio <= maxPrice
     );
-    setPriceFilter(cardsGalery)
+    setPriceFilter(filterPriceGalery)
  
-    if( (minPrice === 0 && maxPrice === 0) ) {
-      alert("Ingresa un rango de precios válido")
+    if((minPrice === 0 && maxPrice === 0)) {
+      alert("Ingresa un rango de precios")
+    } else if(minPrice >= maxPrice) {
+      alert("No es un rango de precios válido")
     }
-    if( minPrice === 0 && maxPrice !== 0 ) {
-      FalseEstado()
-    }
-    if( minPrice !== 0 && maxPrice !== 0 ) {
-      FalseEstado()
-    }
-  };
+  }; 
 
   return (
     <div className="mt-3">

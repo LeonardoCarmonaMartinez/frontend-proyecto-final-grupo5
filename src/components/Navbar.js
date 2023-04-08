@@ -1,9 +1,6 @@
 import React, { useContext } from 'react';
-
 import MyContext from "../MyContext";
-
 import { Link, useNavigate} from "react-router-dom";
-
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -12,52 +9,41 @@ import Navbar from 'react-bootstrap/Navbar';
 
 
 const BarraNavegacion = () => {
-  const { products, searchConcept, setSearchConcept, setHandlerSearching, setChangeState } = useContext(MyContext);
+  const {products, searchConcept, setSearchConcept, setHandlerSearching, idUser} = useContext(MyContext);
   const navigate = useNavigate()
-  const token = localStorage.getItem("token");
-  let enlaces;
-  const borraToken = localStorage.removeItem("token")
-  
-    if(token){
-      enlaces = <><Link to={`/perfil`}> Mi Perfil </Link><Link to={`/`} onClick={borraToken}> Cerrar Sesión </Link></>
-      
-    }else{
-      enlaces = <><Link to={`/login`}> Inicio de Sesión </Link><Link to={`/registro`}> Registrarse </Link></>
-    }
+  const tokenNav = localStorage.getItem("token")
+
+  const clearLocalStorage = () => {
+    if(tokenNav !== "") {localStorage.clear("token")}    
+  };  
 
   const handlerClick = () => {
-    if(searchConcept !== "") {
-      navigate(`/galeria`)
-    }
-    else {
-      alert("¿Qué estas buscando?")
+    if(searchConcept === "" ) {
+      alert("¿Qué estas buscando?")    
+    } else if (searchConcept !== "" && tokenNav === null) {
+      alert("Regístrate e Inicia Sesión antes de continuar")
+      navigate("/")
+    } else {
+      navigate("/galeria/");
     }
 
     const handler = products.filter((prod) => {
-      return (prod.name.toLowerCase().includes(searchConcept))
-    }
-    )
-      setHandlerSearching(handler)
-        
-    const valueFalse = false;
-      setChangeState(valueFalse)    
+      return (prod.titulo.toLowerCase().includes(searchConcept))
+    })
+    setHandlerSearching(handler);
+
   };
-
-
 
   return (
     <div>
     <Navbar className='p-3' bg="dark" expand="lg" variant="dark">
       <Container>
-        <Link to="/" className="text-white ms-3 text-decoration-none">
-          <Navbar.Brand href="#">CONECTA-DOS</Navbar.Brand>
-        </Link>
-
+        <Link to={"/"}><Nav className="text-white ms-3 text-decoration-none">CONECTA-DOS</Nav></Link>
         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }}>
-          
-          <>{enlaces}</>
-        </Nav>
-        
+          {tokenNav !== null ? <div><Link to={"/perfil/"+ idUser}> Mi Perfil </Link><Link to={"/"} onClick={clearLocalStorage}> Cerrar Sesión </Link><Link to={"/galeria/"}>Galería de productos </Link></div>
+                            : <div><Link to={"/login/"}> Inicio de Sesión </Link><Link to={"/registro/"}> Registrarse </Link></div>
+          }
+        </Nav>        
         <Form className="d-flex">
           <Form.Control
             type="search"

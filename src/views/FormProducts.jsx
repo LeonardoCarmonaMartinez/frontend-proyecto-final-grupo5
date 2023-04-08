@@ -1,71 +1,38 @@
-import React, { useContext, useState }from 'react';
-import MyContext from "../MyContext";
+import React, { useState, useContext }from 'react';
+import MyContext from '../MyContext';
 import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 
 const Formulario = () => {
-  const { products } = useContext(MyContext);
+  const { idUser } = useContext(MyContext);
   const navigate = useNavigate();
-  const [ titulo, setTitulo ]                     = useState("");
-  const [ imagen, setImagen ]                     = useState("");
-  const [ descripcion , setDescripcion ]          = useState("");
-  const [ precio , setPrecio ]                    = useState("");
-  const [ correoProducto, setCorreoProducto]      = useState("");
-  const [ telefonoProducto, setTelefonoProducto]  = useState("");
-  const [ er, setEr ]                             = useState(false);
+  const [ titulo, setTitulo ] = useState("");
+  const [ imagen, setImagen ] = useState("");
+  const [ descripcion, setDescripcion ] = useState("");
+  const [ precio, setPrecio ] = useState("");
+  const [ correoProducto, setCorreoProducto] = useState("");
+  const [ telefonoProducto, setTelefonoProducto] = useState("");
 
   const HandleAgregarProducto = async (e) => {
-    e.preventDefault()
-    
-    if(titulo === "" || imagen === "" || descripcion === ""
-        || precio === "" || correoProducto === "" || telefonoProducto === "" ) 
-      { setEr(true)}
-    if ( er === true) {
-        alert("Debes rellenar todos los campos")}
-
-
-    // try {        
-    //   const requestAgregarProducto = {
-    //     method: 'POST',
-    //     headers : { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({'idusuario':{idusuario},'titulo':titulo,'imagen':imagen,'descripcion':descripcion,'precio':precio,'correoProducto':correoProducto,'telefonoProducto':telefonoProducto})
-    //   };        
-    //   const response = await fetch( 'http://localhost:3001/productos', requestAgregarProducto);
-    //   const message = await response.send("Usuario registrado con éxito");
-    //     console.log(message)
-    // } catch (err) {
-    //     console.error( `Error: ${err} ` )
-    // }
-
+    e.preventDefault();    
+    if (titulo === "" || imagen === "" || descripcion === "" || precio === "" || correoProducto === "" || telefonoProducto === "" ) {
+        alert("Debes rellenar todos los campos")
+    } else {
+        try {        
+          const requestAgregarProducto = {
+            method: 'POST',
+            headers : { 'Content-Type': 'application/json' },
+            body: JSON.stringify({"idusuario":idUser,"titulo":titulo,"imagen":imagen,"descripcion":descripcion,"precio":precio,"correoProducto":correoProducto,"telefonoProducto":telefonoProducto})  
+          };        
+          await fetch( 'http://localhost:3001/productos', requestAgregarProducto);
+          // navigate("/infoProducto/" //idproducto)
+        } catch (err) {
+            console.error(`Error: ${err} `)
+        }
+    }
   };
-
-  function agregarProducto(){
-    const assignId = products[products.length - 1]
-    const newId = assignId.id_producto + 1
-    let object = {
-                  id_producto:newId,
-                  name:titulo,
-                  img:imagen,
-                  desc:descripcion,
-                  price:precio
-                 }
-                 products.push(object)
-  }
-
-  console.log (agregarProducto)
-
-  function iraEnVenta() {
-
-    {navigate(`/enventa`)}
-  };
-
-  function total() {
-
-    iraEnVenta()
-    agregarProducto()
-  }
   
   return (
     <Form className='formulario' onSubmit={HandleAgregarProducto}>
@@ -93,7 +60,7 @@ const Formulario = () => {
         <Form.Control type="text" placeholder="Telefono" onChange={(e) => setTelefonoProducto(e.target.value)}/>
       </Form.Group>
       
-      <Button variant="primary" type="submit" onClick={() => total()}>
+      <Button variant="primary" type="submit">
         Publicar
       </Button>
     </Form>

@@ -9,15 +9,9 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 
 const Perfil = () => {
-  const { exitoLogin, users, idUser } = useContext(MyContext);
-
+  const { users, idUser } = useContext(MyContext);
   const navigate = useNavigate();
   
-   console.log("linea16", users)
-  console.log(idUser)
-
-  
-  if(exitoLogin === true){
   return (
     <div>
       {users
@@ -35,7 +29,7 @@ const Perfil = () => {
               <Button
                 variant   = "primary"
                 type      =  "submit"
-                onClick   = {() => {navigate(`/formulario`)}}
+                onClick   = {() => {navigate("/formulario")}}
               >
                 Vender un producto
               </Button>
@@ -43,7 +37,7 @@ const Perfil = () => {
               <Button
                 variant   = "primary"
                 type      =  "submit"
-                onClick   = {() => {navigate(`/enventa`)}}
+                onClick   = {() => {navigate("/enventa/"+ idUser)}}
               >
                 Mis productos en venta
               </Button>
@@ -51,7 +45,7 @@ const Perfil = () => {
               <Button
                 variant   = "primary"
                 type      = "submit"
-                onClick   = {() => {navigate(`/galeria`)}}
+                onClick   = {() => {navigate("/galeria")}}
               >
                 Galeria de productos
               </Button>
@@ -60,7 +54,7 @@ const Perfil = () => {
           </div>
         ))}
     </div>
-  );}
+  )
 };
 
 export default Perfil;

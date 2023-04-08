@@ -20,34 +20,28 @@ import BarraNavegacion from './components/Navbar';
 
 
 function App() {
-
-  const [ changeState, setChangeState ]           = useState(true);
   const [ products, setProducts ]                 = useState([]);
   const [ users, setUsers ]                       = useState([]);
-  const [ priceFilter, setPriceFilter ]           = useState([]);
   const [ minPrice, setMinPrice ]                 = useState (0);
   const [ maxPrice, setMaxPrice ]                 = useState (0);
   const [ exitoRegistro, setExitoRegistro ]       = useState(false);
-  const [ exitoLogin, setExitoLogin ]             = useState(false);
   const [ searchConcept, setSearchConcept ]       = useState("");
-  const [ handlerSearching, setHandlerSearching]  = useState([]);
-  const [ infoUnificada, setInfoUnificada]        = useState([]);
-  const [ filtroUnificada, setFiltroUnificada]    = useState([]);
   const [ idUser, setIdUser]                      = useState([]);
+  const [ priceFilter, setPriceFilter ]           = useState([]);  
+  const [ handlerSearching, setHandlerSearching]  = useState([]);
+  const [ parrafo, setParrafo]                    = useState("");
   
-  const globalState = { changeState, setChangeState,
-                        products, setProducts,
+  
+  const globalState = { products, setProducts,
                         users, setUsers,
                         priceFilter, setPriceFilter,
                         minPrice, setMinPrice,
                         maxPrice, setMaxPrice,
                         exitoRegistro, setExitoRegistro,
-                        exitoLogin, setExitoLogin,
                         searchConcept, setSearchConcept,
                         handlerSearching, setHandlerSearching,
-                        infoUnificada, setInfoUnificada,
-                        filtroUnificada, setFiltroUnificada,
-                        idUser, setIdUser 
+                        idUser, setIdUser,
+                        parrafo, setParrafo 
                       };
 
    
@@ -64,7 +58,7 @@ function App() {
               < Route path  = "/formulario" element={< Formulario />} />
               < Route path  = "/galeria" element={< Galeria />} />
               < Route path  = "/infoproducto/:idproducto" element={< InfoProducto />} />
-              < Route path  = "/enventa/:idproducto" element={< EnVenta />} />
+              < Route path  = "/enventa/:idusuario" element={< EnVenta />} />
               < Route path  = "*" element={< NotFound />}/>
             </ Routes >    
         </ BrowserRouter >

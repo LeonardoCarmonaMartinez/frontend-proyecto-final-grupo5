@@ -32,11 +32,10 @@ const Registro = () => {
             body: JSON.stringify({'nombre':nombre,'edad':edad, 'direccion':direccion, 'correo':correo, 'contrasena':contrasena, 'telefono':telefono})
           };               
           await fetch('http://localhost:3001/registro', requestRegistro)
+          setExitoRegistro(true)
         } catch (err) {
             console.error( `Error: ${err} ` )
-        }
-        
-        setExitoRegistro(true)
+        }       
     }
   };
 
