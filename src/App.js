@@ -57,7 +57,7 @@ function App() {
               < Route path  = "/perfil/:idusuario" element={< Perfil />} />
               < Route path  = "/formulario" element={< Formulario />} />
               < Route path  = "/galeria" element={< Galeria />} />
-              < Route path  = "/infoproducto/:idproducto" element={< InfoProducto />} />
+              < Route path  = "/infoproducto/:idprod" element={< InfoProducto />} />
               < Route path  = "/enventa/:idusuario" element={< EnVenta />} />
               < Route path  = "*" element={< NotFound />}/>
             </ Routes >    

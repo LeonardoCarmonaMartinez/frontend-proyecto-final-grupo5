@@ -1,52 +1,36 @@
 import React, { useContext }  from "react";
-
 import MyContext from "../MyContext";
-
-import { useParams } from "react-router-dom";
-
-import { Container, Row, Col } from "react-bootstrap";
-
+import { useParams, Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 
 const InfoProducto = () => {
   const { products } = useContext(MyContext);
-  const { id_producto } = useParams();
-
-  // Endpoint de información de productos
-  const getProductos = async () => {
-    try {
-      const response = await fetch( 'http://localhost:3001/productos' , {method: 'GET'});
-      const {Products} = await response.json()
-        return {Products}
-    } catch (err) {
-      console.error( `Error: ${err} ` )
-    }
-  };
-    console.log(getProductos)
-
+  const { idprod } = useParams();
+  console.log(idprod)
+  
   
   return (
     <main>
-      {products.filter(product => product.id_producto === id_producto)
-               .map(info =>
-      <div className="contenedor m-5" key={info.id_producto} >
+      {products.filter(pro => pro.idproducto === idprod ).map(info =>
+      <div className="contenedor m-5" key={info.idproducto} >
         <Container>
-          <h3>{info.name}</h3>
+          <h3>{info.titulo}</h3>
           <Row>
             <Col>
-              <img src={info.img} alt="imagen de referencia"/> 
+              <img src={info.imagen} alt="imagen de referencia"/> 
             </Col>
             <Col>              
-              <p className="descrip">Descripción:{info.desc}</p>
-              
-              <p className="fw-bold fs-2">Precio ${info.price}</p>
-              <p></p>
-              <p></p>
+              <p className="descrip">Descripción:{info.descripcion}</p>              
+              <p className="fw-bold fs-2">Precio:${info.precio}</p>
+              <p className="fw-bold fs-2">Correo de contacto:{info.correoproducto}</p>
+              <p className="fw-bold fs-2">Telefono de contacto{info.telefonoproducto}</p>      
             </Col>
           </Row>
         </Container>
       </div>
       )}
+      <Link to={"/galeria/"}><Button>Regresar a Galeria</Button></Link>
     </main>
   );
 };

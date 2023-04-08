@@ -15,23 +15,23 @@ const BarraNavegacion = () => {
 
   const clearLocalStorage = () => {
     if(tokenNav !== "") {localStorage.clear("token")}    
-  };  
+  };
 
-  const handlerClick = () => {
+  const handlerBusqueda = () => {
     if(searchConcept === "" ) {
-      alert("¿Qué estas buscando?")    
-    } else if (searchConcept !== "" && tokenNav === null) {
-      alert("Regístrate e Inicia Sesión antes de continuar")
-      navigate("/")
+      alert("¿Qué estas buscando?")
+    } else if(searchConcept !== "" && tokenNav === null) {
+        alert("Regístrate e Inicia Sesión antes de continuar") 
+        navigate("/")
     } else {
-      navigate("/galeria/");
+        navigate("/galeria/")
     }
 
     const handler = products.filter((prod) => {
       return (prod.titulo.toLowerCase().includes(searchConcept))
     })
-    setHandlerSearching(handler);
-
+      setHandlerSearching(handler);
+      setSearchConcept("")
   };
 
   return (
@@ -40,8 +40,8 @@ const BarraNavegacion = () => {
       <Container>
         <Link to={"/"}><Nav className="text-white ms-3 text-decoration-none">CONECTA-DOS</Nav></Link>
         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }}>
-          {tokenNav !== null ? <div><Link to={"/perfil/"+ idUser}> Mi Perfil </Link><Link to={"/"} onClick={clearLocalStorage}> Cerrar Sesión </Link><Link to={"/galeria/"}>Galería de productos </Link></div>
-                            : <div><Link to={"/login/"}> Inicio de Sesión </Link><Link to={"/registro/"}> Registrarse </Link></div>
+          {tokenNav !== null ? <div><Link to={"/perfil/"+ idUser}> Mi Perfil </Link><span> | </span><Link to={"/"} onClick={clearLocalStorage}> Cerrar Sesión </Link><span> | </span><Link to={"/galeria/"}>Galería de productos </Link></div>
+                            : <div><Link to={"/login/"}> Inicio de Sesión </Link><span> | </span><Link to={"/registro/"}> Registrarse </Link></div>
           }
         </Nav>        
         <Form className="d-flex">
@@ -50,9 +50,10 @@ const BarraNavegacion = () => {
             placeholder="Busca un producto"
             className="me-2"
             aria-label="Search"
+            value={searchConcept}
             onChange={(e) => setSearchConcept(e.target.value)}
           />
-          <Button variant="outline-success" onClick={handlerClick}>Buscar</Button>
+          <Button variant="outline-success" onClick={handlerBusqueda}>Buscar</Button>
         </Form>
       </Container>
     </Navbar>

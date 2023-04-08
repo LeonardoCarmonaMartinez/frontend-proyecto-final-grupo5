@@ -6,16 +6,14 @@ import MyContext from "../MyContext";
 const Sidebar = () => {
   const {products, setPriceFilter, minPrice, setMinPrice, maxPrice, setMaxPrice} = useContext(MyContext)    
   
-  const handleSearch = () => {
-    const filterPriceGalery = products.filter(
-      product => product.precio >= minPrice && product.precio <= maxPrice
-    );
-    setPriceFilter(filterPriceGalery)
- 
+  const handlerSearch = () => { 
     if((minPrice === 0 && maxPrice === 0)) {
       alert("Ingresa un rango de precios")
     } else if(minPrice >= maxPrice) {
       alert("No es un rango de precios válido")
+    } else{
+      const filterPrice = products.filter(product => product.precio >= minPrice && product.precio <= maxPrice);
+      setPriceFilter(filterPrice)
     }
   }; 
 
@@ -40,7 +38,7 @@ const Sidebar = () => {
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value || 0)}/>
       </div>
-      <button className="mt-3" variant="primary" onClick={() => handleSearch()}>BUSCAR</button>    
+      <button className="mt-3" variant="primary" onClick={() => handlerSearch()}>BUSCAR</button>    
     </div>
   );
 }
